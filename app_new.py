@@ -8,14 +8,20 @@ st.write("""
 
 st.header('User Input Parameters')
 
-num1 = st.number_input("Number 1",min_value=0,max_value=200000,step=1,value=5)
-num2 = st.number_input("Number 2",min_value=0,max_value=200000,step=1,value=15)
-num3 = st.number_input("Number 3",min_value=0,max_value=200000,step=1,value=50)
+if "laregstNum" not in st.session_state:
+    st.session_state.laregstNum = 0
+def largestNum():
+  laregstNum = st.session_state.num1_input
+  if ( laregstNum < st.session_state.num2_input):
+    laregstNum = st.session_state.num2_input
+  if ( laregstNum < st.session_state.num3_input):
+    laregstNum = st.session_state.num3_input
+    
+num1 = st.number_input("Number 1",min_value=0,max_value=200000,step=1,value=0,key="num1_input",on_change=largestNum)
+num2 = st.number_input("Number 2",min_value=0,max_value=200000,step=1,value=0,key="num2_input",on_change=largestNum)
+num3 = st.number_input("Number 3",min_value=0,max_value=200000,step=1,value=0,key="num3_input",on_change=largestNum)
 
+
+    
 st.subheader('The largest Number is')
-if (num1>num2 and num1>num3):
-  st.write(num1)
-if (num2>num1 and num2>num3):
-  st.write(num2)
-if (num3>num2 and num3>num1):
-  st.write(num3)
+st.write(st.session_state.laregstNum)
